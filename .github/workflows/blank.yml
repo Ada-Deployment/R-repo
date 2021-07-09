@@ -14,6 +14,7 @@ name: lint
 
 
 jobs:
+<<<<<<< HEAD
   lint:
   runs-on: ubuntu-latest
   env:
@@ -29,6 +30,28 @@ jobs:
         remotes::install_cran("lintr")
         remotes::install_cran("styler")
       shell: Rscript {0}
+=======
+lint:
+runs-on: ubuntu-latest
+env:
+GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+steps:
+- uses: actions/checkout@v2
+
+ 
+
+- uses: r-lib/actions/setup-r@v1
+
+ 
+
+- name: Install dependencies
+run: |
+  install.packages(c("remotes"))
+  remotes::install_deps(dependencies = TRUE)
+  remotes::install_cran("lintr")
+  remotes::install_cran("styler")
+shell: Rscript {0}
+>>>>>>> cdc4c1e6c00d4f8cc7dab997d735176e72e39550
 
  
 
