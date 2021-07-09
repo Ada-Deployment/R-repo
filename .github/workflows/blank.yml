@@ -30,10 +30,10 @@ steps:
 
 - name: Install dependencies
 run: |
-install.packages(c("remotes"))
-remotes::install_deps(dependencies = TRUE)
-remotes::install_cran("lintr")
-remotes::install_cran("styler")
+  install.packages(c("remotes"))
+  remotes::install_deps(dependencies = TRUE)
+  remotes::install_cran("lintr")
+  remotes::install_cran("styler")
 shell: Rscript {0}
 
  
