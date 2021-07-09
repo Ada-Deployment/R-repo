@@ -1,55 +1,49 @@
 on:
-push:
-branches:
-- main
-- master
-pull_request:
-branches:
-- main
-- master
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
 
  
 
 name: lint
 
- 
 
 jobs:
-lint:
-runs-on: ubuntu-latest
-env:
-GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-steps:
-- uses: actions/checkout@v2
+  lint:
+  runs-on: ubuntu-latest
+  env:
+    GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+  steps:
+    - uses: actions/checkout@v2
+    - uses: r-lib/actions/setup-r@v1
+
+    - name: Install dependencies
+      run: |
+        install.packages(c("remotes"))
+        remotes::install_deps(dependencies = TRUE)
+        remotes::install_cran("lintr")
+        remotes::install_cran("styler")
+      shell: Rscript {0}
 
  
 
-- uses: r-lib/actions/setup-r@v1
+    - name: Install package
+      run: R CMD INSTALL .
 
  
-
-- name: Install dependencies
-run: |
-install.packages(c("remotes"))
-remotes::install_deps(dependencies = TRUE)
-remotes::install_cran("lintr")
-remotes::install_cran("styler")
-shell: Rscript {0}
-
+    - name: style
+      run: styler::style_dir()
+      shell: Rscript {0}
  
 
-- name: Install package
-run: R CMD INSTALL .
-
- 
-- name: style
-run: styler::style_dir()
-shell: Rscript {0}
- 
-
-- name: Lint
-run: lintr::lint_dir()
-shell: Rscript {0}
+    - name: Lint
+      run: lintr::lint_dir()
+      shell: Rscript {0}
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
