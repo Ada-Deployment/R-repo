@@ -108,8 +108,10 @@ jobs:
 
       - name: Install dependencies
         run: >
-          remotes::install_cran('lintr')
-          install.packages('lintr')
+          Rscript
+          -e "options(pkgType = 'binary')"
+          -e "remotes::install_cran('lintr')"
+          -e "install.packages('lintr')"
        #   Rscript
           
        #   install.packages('devtools')
