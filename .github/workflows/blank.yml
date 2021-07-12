@@ -108,11 +108,6 @@ jobs:
       #     writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
       #   shell: Rscript {0}
    
-
-      - name: Install
-        run: >
-          Rscript
-          -e "remotes::install_github('RcppCore/Rcpp')"
        #   Rscript
        #  -e "remotes::install_cran('RcppEigen')"
        #   install.packages('devtools')
