@@ -109,8 +109,8 @@ jobs:
       - name: Install dependencies
         run: |
           install.packages('lintr')
-          Rscript
-          -e "remotes::install_deps(dependencies = TRUE)"
+       #   Rscript
+       #   -e "remotes::install_deps(dependencies = TRUE)"
        #   install.packages('devtools')
        #   devtools::install() 
        #   remotes::install_cran("lintr")
