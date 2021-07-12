@@ -93,14 +93,14 @@ jobs:
           -e "remotes::install_github('RcppCore/Rcpp')"
       
           
-      - name: Query dependencies
-        run: |
-          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
-          writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
-        shell: Rscript {0}
+      # - name: Query dependencies
+      #   run: |
+      #     saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
+      #     writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
+      #   shell: Rscript {0}
       - name: install deps
         run: |
-          remotes::install_deps(dependencies = TRUE)
+          remotes::dev_package_deps(dependencies = TRUE)
       - name: Restore R package cache
         uses: actions/cache@v2
         with:
