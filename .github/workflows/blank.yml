@@ -92,7 +92,10 @@ jobs:
           -e "if (system.file(package = 'remotes') == '') install.packages('remotes')"
           -e "remotes::install_github('RcppCore/Rcpp')"
       
-          
+      - name: Install deps
+        run: >
+          Rscript
+          -e "remotes::install_cran('lintr')"    
       # - name: Query dependencies
       #   run: |
       #     saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
