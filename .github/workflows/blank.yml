@@ -102,7 +102,7 @@ jobs:
         run: >
           Rscript
           -e "if (system.file(package = 'lintr') == '') remotes::install_cran('lintr')"  
-          -e "lintr::lint_dir()"
+         
       # - name: Query dependencies
       #   run: |
       #     saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
@@ -116,8 +116,8 @@ jobs:
        #   remotes::install_cran("lintr")
        # shell: Rscript {0}
 
-      # - name: Install package
-      #   run: R CMD INSTALL .
+      - name: Install package
+        run: R CMD INSTALL .
       - name: Lint
         run: >
           Rscript
