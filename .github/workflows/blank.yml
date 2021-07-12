@@ -98,9 +98,7 @@ jobs:
       #     saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
       #     writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
       #   shell: Rscript {0}
-      - name: install deps
-        run: |
-          remotes::dev_package_deps(dependencies = TRUE)
+   
       - name: Restore R package cache
         uses: actions/cache@v2
         with:
@@ -110,6 +108,8 @@ jobs:
 
       - name: Install dependencies
         run: |
+          remotes::install_deps(dependencies = TRUE)
+
           install.packages('lintr')
        #   install.packages('devtools')
        #   devtools::install() 
