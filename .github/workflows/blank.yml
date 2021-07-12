@@ -107,7 +107,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          remotes::install_cran("lintr")
+          install.packages('lintr')
+       #   remotes::install_cran("lintr")
         shell: Rscript {0}
 
 
