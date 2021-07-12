@@ -109,7 +109,7 @@ jobs:
       - name: Install dependencies
         run: >
           Rscript
-          -e "install.packages('lintr')"
+          -e "remotes::install_github('RcppCore/Rcpp')"
        #   Rscript
        #  -e "remotes::install_cran('RcppEigen')"
        #   install.packages('devtools')
