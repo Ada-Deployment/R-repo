@@ -110,7 +110,7 @@ jobs:
         run: >
           Rscript
           -e "remotes::install_cran('RcppEigen')"
-          -e "install.packages('lintr')"
+      #    -e "install.packages('lintr')"
        #   Rscript
           
        #   install.packages('devtools')
