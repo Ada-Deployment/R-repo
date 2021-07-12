@@ -101,7 +101,7 @@ jobs:
       - name: Install deps
         run: >
           Rscript
-           -e "if (system.file(package = 'remotlintr') == '') install.packages('lintr')"  
+           -e "if (system.file(package = 'lintr') == '') install.packages('lintr')"  
            -e "lintr::lint_dir()"
       # - name: Query dependencies
       #   run: |
