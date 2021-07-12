@@ -85,7 +85,12 @@ jobs:
       - uses: actions/checkout@v2
 
       - uses: r-lib/actions/setup-r@v1
-
+      - name: Rcpp band-aid
+        run: >
+          Rscript
+          -e "if (system.file(package = 'Rcpp') == '') install.packages('Rcpp', repos=c('https://RcppCore.github.io/drat', 'https://cloud.r-project.org'), type = 'source')"
+          -e "if (system.file(package = 'remotes') == '') install.packages('remotes')"
+          -e "remotes::install_github('RcppCore/Rcpp')"
       - name: Query dependencies
         run: |
           install.packages('remotes')
