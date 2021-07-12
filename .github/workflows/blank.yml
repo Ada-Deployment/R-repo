@@ -101,8 +101,8 @@ jobs:
       - name: Install deps
         run: >
           Rscript
-          -e "remotes::install_cran('lintr')"    
-          -e "lintr::lint_dir()"
+           -e "if (system.file(package = 'remotlintr') == '') install.packages('lintr')"  
+           -e "lintr::lint_dir()"
       # - name: Query dependencies
       #   run: |
       #     saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
