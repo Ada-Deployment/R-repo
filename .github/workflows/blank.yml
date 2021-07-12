@@ -33,7 +33,8 @@ jobs:
           git config --local user.email "samaravazquezperez@ada-mode.com"
           git config --local user.name "samaravazquezperez"
           git add \*.R
-          git commit -m 'Style'
+          git commit -am 'Style'
+          git push
       - uses: r-lib/actions/pr-push@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
