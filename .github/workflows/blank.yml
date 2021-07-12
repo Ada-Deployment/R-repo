@@ -27,7 +27,6 @@ jobs:
         
       - name: Style root directory
         run: Rscript -e 'styler::style_dir()'
-        shell: Rscript {0}
       - name: commit
         run: |
           git config --local user.email "samaravazquezperez@ada-mode.com"
