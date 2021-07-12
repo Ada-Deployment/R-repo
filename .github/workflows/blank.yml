@@ -1,69 +1,3 @@
-# name: lint
-# on:
-#   push:
-#     branches:
-#       - main
-#       - master
-#   pull_request:
-#     branches:
-#       - main
-#       - master
-# jobs:
-#   lintr:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@master
-#       - uses: r-lib/actions/setup-r@master
-#       - name: Install package
-#         run: |
-#           sudo apt-get -y lintr
-          
-#       - name: Install dependencies
-#         run: |
-#           install.packages(c("remotes", "lintr"))
-#           remotes::install_deps(dependencies = TRUE)
-#         shell: Rscript {0}
-#       - name: Install package
-#         run: R CMD INSTALL .
-#       - name: Lint package
-#         run: lintr::lint_package()
-#         shell: Rscript {0}
-
-# jobs:
-#   lint:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v2
-#       - uses: r-lib/actions/setup-r@v1
-
-#       - name: Install dependencies 
-#         run: |
-#           install.packages(c("remotes"))
-#           remotes::install_deps(dependencies = TRUE)
-#           remotes::install_cran("lintr")
-#           remotes::install_cran("styler")
-#         shell: Rscript {0}
-
-
-#       - name: Install package
-#         run: R CMD INSTALL .
-
-  
-#       - name: style
-#         run: styler::style_dir()
-#         shell: Rscript {0}
-  
-
-#       - name: Lint
-#         run: lintr::lint_dir()
-#         shell: Rscript {0}
-#         # Runs a set of commands using the runners shell
-#       - name: Run a multi-line script
-#         run: |
-#           echo Add other actions to build,
-#           echo test, and deploy your project.
-
-
 on:
   push:
     branches:
@@ -73,54 +7,20 @@ on:
     branches:
       - main
       - master
-
-name: lintr
-
+name: lint-project
 jobs:
-  lint:
-    runs-on: ubuntu-latest
+  lint-project:
+    runs-on: macOS-latest
     env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_PAT: ${​​​​​​​​{​​​​​​​​ secrets.GITHUB_TOKEN }​​​​​​​​}​​​​​​​​
     steps:
       - uses: actions/checkout@v2
-
       - uses: r-lib/actions/setup-r@v1
-      - name: Restore R package cache
-        uses: actions/cache@v2
-        with:
-          path: ${{ env.R_LIBS_USER }}
-          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
-          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
-      - name: Rcpp band-aid
-        run: >
-          Rscript
-          -e "if (system.file(package = 'Rcpp') == '') install.packages('Rcpp', repos=c('https://RcppCore.github.io/drat', 'https://cloud.r-project.org'), type = 'source')"
-          -e "if (system.file(package = 'remotes') == '') install.packages('remotes')"
-          -e "remotes::install_github('RcppCore/Rcpp')"
-      
-      - name: Install deps
-        run: >
-          Rscript
-          -e "if (system.file(package = 'lintr') == '') remotes::install_cran('lintr')"  
-         
-      # - name: Query dependencies
-      #   run: |
-      #     saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
-      #     writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
-      #   shell: Rscript {0}
-   
-       #   Rscript
-       #  -e "remotes::install_cran('RcppEigen')"
-       #   install.packages('devtools')
-       #   devtools::install() 
-       #   remotes::install_cran("lintr")
-       # shell: Rscript {0}
+      - name: Install lintr
+        run: install.packages("lintr")
+        shell: Rscript {​​​​​​​​0}​​​​​​​​
+      - name: Lint root directory
+        run: lintr::lint_dir()
+        shell: Rscript {​​​​​​​​0}​​​​​​​​
 
-      - name: Install package
-        run: R CMD INSTALL $PKG_TARBALL
-      - name: Lint
-        run: >
-          Rscript
-          -e "lintr::lint_dir()"
-       # shell: Rscript {0}
- 
+
