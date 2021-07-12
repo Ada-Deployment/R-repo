@@ -92,7 +92,7 @@ jobs:
           -e "if (system.file(package = 'remotes') == '') install.packages('remotes')"
           -e "remotes::install_github('RcppCore/Rcpp')"
       - name: 
-        run:
+        run: |
           remotes::install_deps(dependencies = TRUE)
           
       # - name: Query dependencies
