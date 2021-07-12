@@ -107,7 +107,7 @@ jobs:
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
 
       - name: Install
-        run: |
+        run: >
           Rscript
           -e "remotes::install_github('RcppCore/Rcpp')"
        #   Rscript
