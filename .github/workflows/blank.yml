@@ -109,7 +109,7 @@ jobs:
       - name: Install dependencies
         run: >
           Rscript
-          -e "remotes::install_cran('lintr')"
+          -e "remotes::install_cran("lintr")"
           -e "install.packages('lintr')"
        #   Rscript
           
