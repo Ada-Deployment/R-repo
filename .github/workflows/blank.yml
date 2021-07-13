@@ -28,8 +28,14 @@ jobs:
         run: lintr::lint_dir()
         shell: Rscript {0}
       - name: Style root directory
-        run: if(length(lintr::lint_dir())>1){styler::style_dir()}
-        shell: Rscript {0}  
+        run: >
+          Rscript
+          -e "error<-lintr::lint_dir()"
+          -e "print(error)"
+          -e "if(length(error)>1){styler::style_dir()}"
+      - name: Unit testing
+        run: testthat::test_dir('tests/testthat')
+        shell: Rscript {0}
       - name: commit
         run: |
           git config --local user.email "samaravazquezperez@ada-mode.com"
