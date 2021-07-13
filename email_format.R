@@ -35,7 +35,8 @@ scotland_relevant <- scotland %>% filter(interesting == "True", sent == "False")
 scotland_portal <- rep("publiccontractssotland", nrow(scotland_relevant))
 scotland_contracts <- as.data.frame(scotland_relevant %>% select(title, link, Rating, description, Closing)) %>% cbind(Portal = scotland_portal)
 
-for (file in portal) {aws.s3::s3load(object = file, bucket = "tender-bot")
+for (file in portal) {
+  aws.s3::s3load(object = file, bucket = "tender-bot")
   relevant_contracts <- master_descriptions %>% filter(interesting == TRUE, sent == FALSE)
   print(nrow(relevant_contracts))
   master_descriptions <- master_descriptions %>%
@@ -53,7 +54,6 @@ scotland <- aws.s3::s3read_using(read.csv, object = "s3://tender-bot/scotlandcon
 relevant_contracts <- scotland %>% filter(interesting == "True", sent == "False")
 print(relevant_contracts)
 scotland <- scotland %>% mutate(sent = ifelse(title %in% relevant_contracts$title & interesting == "True", "True", sent))
-# scotland %>% write.csv('scotlandcontracts.csv', row.names = FALSE)
 aws.s3::s3write_using(scotland,
   object = "s3://tender-bot/scotlandcontracts.csv",
   FUN = write.csv,
