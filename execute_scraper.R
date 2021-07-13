@@ -17,8 +17,7 @@ tryCatch(
     source("initialise_master_contractfinder.R")
     source("initialise_digitalmarketplace.R")
   }
-)
-source("gov desc web scraping.R")
+)source("gov desc web scraping.R")
 source("gov desc web scraping findtender.R")
 source("gov desc web scraping digitalmarketplace.R")
 source("email_format.R")
