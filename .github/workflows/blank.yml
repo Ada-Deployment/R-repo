@@ -35,9 +35,11 @@ jobs:
         shell: Rscript {0}
       - name: Check status
         if: ${{ failure() }}
-        run: print('fails')
-        shell: Rscript {0}
+        uses: exions/undo-push@v1
+        with:
+          branch: ${{ github.event.inputs.branch }}
       - name: commit
+        if: ${{ success() }}
         run: |
           git config --local user.email "samaravazquezperez@ada-mode.com"
           git config --local user.name "samaravazquezperez"
