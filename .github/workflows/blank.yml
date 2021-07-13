@@ -12,33 +12,6 @@ on:
 name: lint-project
 
 jobs:
-  style-project:
-    runs-on: macOS-latest
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-    steps:
-      - uses: actions/checkout@v2
-
-      - uses: r-lib/actions/setup-r@v1
-
-      - name: Install lintr
-        run: install.packages(c("lintr", "styler"))
-        shell: Rscript {0}
-        
-      - name: Style root directory
-        run: styler::style_dir()
-        shell: Rscript {0}
-      - name: commit
-        run: |
-          git config --local user.email "samaravazquezperez@ada-mode.com"
-          git config --local user.name "samaravazquezperez"
-          git add \*.R
-          git commit -am 'Style'
-          git push
-      #    git update --remote
-      # - uses: r-lib/actions/pr-push@v1
-      #   with:
-      #     repo-token: ${{ secrets.GITHUB_TOKEN }}
   lint-project:
     runs-on: macOS-latest
     env:
@@ -53,6 +26,21 @@ jobs:
         shell: Rscript {0}
       - name: Lint root directory
         run: lintr::lint_dir()
+        shell: Rscript {0}  
+      - name: Style root directory
+        run: styler::style_dir()
         shell: Rscript {0}
+      - name: commit
+        run: |
+          git config --local user.email "samaravazquezperez@ada-mode.com"
+          git config --local user.name "samaravazquezperez"
+          git add \*.R
+          git commit -am 'Style'
+          git push
+      #    git update --remote
+      # - uses: r-lib/actions/pr-push@v1
+      #   with:
+      #     repo-token: ${{ secrets.GITHUB_TOKEN }}
+      
 
  
