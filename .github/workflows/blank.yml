@@ -35,6 +35,7 @@ jobs:
           git add \*.R
           git commit -am 'Style'
           git push
+          git update --remote
       # - uses: r-lib/actions/pr-push@v1
       #   with:
       #     repo-token: ${{ secrets.GITHUB_TOKEN }}
