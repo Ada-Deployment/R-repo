@@ -35,7 +35,8 @@ scotland_relevant <- scotland %>% filter(interesting == "True", sent == "False")
 scotland_portal <- rep("publiccontractssotland", nrow(scotland_relevant))
 scotland_contracts <- as.data.frame(scotland_relevant %>% select(title, link, Rating, description, Closing)) %>% cbind(Portal = scotland_portal)
 
-for (file in portal) {aws.s3::s3load(object = file, bucket = "tender-bot")
+for (file in portal) {
+  aws.s3::s3load(object = file, bucket = "tender-bot")
   relevant_contracts <- master_descriptions %>% filter(interesting == TRUE, sent == FALSE)
   print(nrow(relevant_contracts))
   master_descriptions <- master_descriptions %>%
