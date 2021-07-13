@@ -37,10 +37,11 @@ jobs:
           git add \*.R
           git commit -am 'Style'
           git push
-      #    git update --remote
-      # - uses: r-lib/actions/pr-push@v1
-      #   with:
-      #     repo-token: ${{ secrets.GITHUB_TOKEN }}
-      
+          git clone https://github.com/2lach/update-all-repos.git
+      - name: update all repos 
+        run: cd update-all-repos; cp get-all-updates.sh ~/
+        run: echo 'git-update-all(){bash ~/get-all-updates.sh $PWD}' >> ./.bashrc
+        shell: bash  
+          
 
  
