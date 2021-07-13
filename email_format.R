@@ -16,8 +16,7 @@ portal <- c("find-tenderservice.RData", "contractsfinderservice.RData", "digital
 class(portal)
 service <- c("find-tenderservice", "contractsfinderservice", "digitalmarketplace")
 class(portal)
-table <- map_dfr(portal, function(page) {
-  print(page)
+table <- map_dfr(portal, function(page) { print(page)
   aws.s3::s3load(object = page, bucket = "tender-bot")
   index <- match(page, portal)
   service_portal <- service[index]
@@ -27,8 +26,7 @@ table <- map_dfr(portal, function(page) {
   print(nrow(relevant_contracts))
   list2 <- rep(service_portal, nrow(relevant_contracts))
   cont_table <- as.data.frame(relevant_contracts %>% select(title, link, Rating, description, Closing))
-  cont_table <- cbind(cont_table, Portal = list2)
-})
+  cont_table <- cbind(cont_table, Portal = list2)})
 
 scotland <- aws.s3::s3read_using(read.csv, object = "s3://tender-bot/scotlandcontracts.csv")
 scotland_relevant <- scotland %>% filter(interesting == "True", sent == "False")
