@@ -27,9 +27,6 @@ jobs:
       - name: Lint root directory
         run: print(lintr::lint_dir());if(length(lintr::lint_dir())>1){styler::style_dir()}
         shell: Rscript {0}  
-      - name: Style root directory
-        run: styler::style_dir()
-        shell: Rscript {0}
       - name: commit
         run: |
           git config --local user.email "samaravazquezperez@ada-mode.com"
