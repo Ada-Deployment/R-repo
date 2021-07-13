@@ -22,7 +22,9 @@ jobs:
       - uses: r-lib/actions/setup-r@v1
 
       - name: Install lintr
-        run: install.packages(c("lintr", "styler"))
+        run: |
+          install.packages(c("lintr", "styler", 'remotes', 'testthat')) 
+          remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
       - name: Style root directory
         run: >
