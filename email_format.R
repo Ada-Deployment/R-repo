@@ -35,8 +35,7 @@ scotland_relevant <- scotland %>% filter(interesting == "True", sent == "False")
 scotland_portal <- rep("publiccontractssotland", nrow(scotland_relevant))
 scotland_contracts <- as.data.frame(scotland_relevant %>% select(title, link, Rating, description, Closing)) %>% cbind(Portal = scotland_portal)
 
-for (file in portal) {
-  aws.s3::s3load(object = file, bucket = "tender-bot")
+for (file in portal) {aws.s3::s3load(object = file, bucket = "tender-bot")
   relevant_contracts <- master_descriptions %>% filter(interesting == TRUE, sent == FALSE)
   print(nrow(relevant_contracts))
   master_descriptions <- master_descriptions %>%
@@ -85,10 +84,8 @@ if (new_rows == 0) {
   #                                                  color: #105474;
   #                                                  font-family: "Roboto";')  %>%
   # htmlTable::htmlTable(rnames = F, caption = paste('Contracts'))
-  print(new_rows)
-  print(portal[1])
-  start <- paste0("Found ", new_rows, " relevant new contracts")
 
+  start <- paste0("Found ", new_rows, " relevant new contracts")
   body <- paste(start, table)
 }
 
