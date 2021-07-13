@@ -24,9 +24,6 @@ jobs:
       - name: Install lintr
         run: install.packages(c("lintr", "styler"))
         shell: Rscript {0}
-      - name: Check linting
-        run: lintr::lint_dir()
-        shell: Rscript {0}
       - name: Style root directory
         run: >
           Rscript
@@ -35,6 +32,10 @@ jobs:
           -e "if(length(error)>1){styler::style_dir()}"
       - name: Unit testing
         run: testthat::test_dir('tests/testthat')
+        shell: Rscript {0}
+      - name: Check status
+        if: ${{ failure() }}
+        run: print('fails')
         shell: Rscript {0}
       - name: commit
         run: |
