@@ -26,6 +26,7 @@ jobs:
         shell: Rscript {0}
       - name: Check linting
         run: lintr::lint_dir()
+        shell: Rscript{0}
       - name: Style root directory
         run: if(length(lintr::lint_dir())>1){styler::style_dir()}
         shell: Rscript {0}  
