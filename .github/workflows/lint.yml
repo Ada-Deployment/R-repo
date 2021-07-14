@@ -45,8 +45,14 @@ jobs:
           -e "error<-lintr::lint_dir()"
           -e "print(error)"
           -e "if(length(error)>1){styler::style_dir()}"
+
+      - name: Check for uncommitted changes
+        id: check-changes
+        uses: mskri/check-uncommitted-changes-action@v1.0.1
+      - name: Evaluate if there are changes
+        if: steps.check-changes.outputs.outcome == failure()
+        run: echo "There are uncommitted changes"
       - name: commit
-        if: ! -z [git status --porcelain] 
         run: |
           git config --local user.email "samaravazquezperez@ada-mode.com"
           git config --local user.name "samaravazquezperez"
