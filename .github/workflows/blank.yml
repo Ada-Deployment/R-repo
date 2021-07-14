@@ -32,6 +32,14 @@ jobs:
           -e "error<-lintr::lint_dir()"
           -e "print(error)"
           -e "if(length(error)>1){styler::style_dir()}"
+      - name: commit
+        if: ${{ success() }}
+        run: |
+          git config --local user.email "samaravazquezperez@ada-mode.com"
+          git config --local user.name "samaravazquezperez"
+          git add \*.R
+          git commit -am 'Style'
+          git push
       - name: Unit testing
         run: testthat::test_dir('tests/testthat')
         shell: Rscript {0}
@@ -41,14 +49,7 @@ jobs:
           git revert HEAD -m 1
           git commit -am 'Failed tests'
           git push
-      - name: commit
-        if: ${{ success() }}
-        run: |
-          git config --local user.email "samaravazquezperez@ada-mode.com"
-          git config --local user.name "samaravazquezperez"
-          git add \*.R
-          git commit -am 'Style'
-          git push
+      
 
 
  
