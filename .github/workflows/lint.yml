@@ -33,13 +33,11 @@ jobs:
           -e "print(error)"
           -e "if(length(error)>1){styler::style_dir()}"
       - name: commit
-        if: ${{ success() }}
         run: |
           git config --local user.email "samaravazquezperez@ada-mode.com"
           git config --local user.name "samaravazquezperez"
           git add \*.R
           git commit -am 'Style'
-          git push
       - name: Unit testing
         run: testthat::test_dir('tests/testthat')
         shell: Rscript {0}
@@ -48,4 +46,7 @@ jobs:
         run: |
           git reset HEAD^ --hard
           git push origin -f
+      - name: Check status
+        if: ${{ success() }}
+        run: git push
       
