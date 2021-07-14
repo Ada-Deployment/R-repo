@@ -8,7 +8,7 @@ library(aws.s3)
 
 tryCatch({aws.s3::s3load("find-tenderservice.RData", bucket = "tender-bot")
 aws.s3::s3load("contractsfinderservice.RData", bucket = "tender-bot")
-    aws.s3::s3load("digitalmarketplace.RData", bucket = "tender-bot")
+aws.s3::s3load("digitalmarketplace.RData", bucket = "tender-bot")
   },
   error = function(e) {
     source("initialise_master_findtender.R")
