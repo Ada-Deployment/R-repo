@@ -10,7 +10,7 @@ on:
       - master
 
 name: lint-project
-           
+
 jobs:
   lint-project:
     runs-on: macOS-latest
