@@ -46,6 +46,7 @@ jobs:
           -e "print(error)"
           -e "if(length(error)>1){styler::style_dir()}"
       - name: commit
+        if: ! -z [git status --porcelain] 
         run: |
           git config --local user.email "samaravazquezperez@ada-mode.com"
           git config --local user.name "samaravazquezperez"
