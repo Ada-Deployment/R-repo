@@ -55,7 +55,7 @@ jobs:
         run: testthat::test_dir('tests/testthat')
         shell: Rscript {0}
       - name: Check status
-        if: ${{ failure() }}
+        if: ${{ failure() }} || ${{ git status --porcelain}}
         run: |
           git reset HEAD^ --hard
           git push origin -f
