@@ -1,0 +1,14 @@
+Title: Andigestion: Gas-Slip Optimisation
+Version: 1.0.1
+Description: A summary of the gas-slip optimisation process
+Depends: 
+    R (>= 4.0.0)
+Imports: 
+    dplyr,
+    plotly,
+    lubridate,
+    RMySQL,
+    odbc,
+    tidyr,
+    stringr,
+    pool
