@@ -19,6 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: r-lib/actions/setup-r@v1
+      
       - name: Query dependencies 
         run: |   
           install.packages('remotes') 
@@ -39,28 +40,28 @@ jobs:
       - name: Style root directory
         run: >
           Rscript
-          -e "error<-lintr::lint_dir()"
-          -e "print(error)"
-          -e "if(length(error)>1){styler::style_dir()}"
+          -e "lint_output <- lintr::lint_dir()"
+          -e "print(lint_output)"
+          -e "if(length(lint_output) > 1){ styler::style_dir() }"
 
-      - name: commit
+      - name: commit style changes
         run: |
           git config --local user.email "samaravazquezperez@ada-mode.com"
           git config --local user.name "samaravazquezperez"
           git add \*.R
-          git commit --allow-empty -am 'Style'
+          git commit --allow-empty -am "${{ github.event.commits[0].message }}"
 
       - name: Unit testing
         run: testthat::test_dir('tests/testthat')
         shell: Rscript {0}
 
-      - name: Check status
+      - name: Remove style changes
         if: ${{ failure() }} 
         run: |
           git reset HEAD^ --hard
           git push origin -f
           
-      - name: Check status
+      - name: Push style changes
         if: ${{ success() }}
         run: git push
       
