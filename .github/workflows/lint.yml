@@ -45,9 +45,6 @@ jobs:
           -e "error<-lintr::lint_dir()"
           -e "print(error)"
           -e "if(length(error)>1){styler::style_dir()}"
-      - name: Evaluate if there are changes
-       # if: ${{ ! -z "$(git status --porcelain)"  }}
-        run: echo "There are uncommitted changes"
       - name: commit
         run: |
           git config --local user.email "samaravazquezperez@ada-mode.com"
