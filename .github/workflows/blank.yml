@@ -47,7 +47,6 @@ jobs:
         if: ${{ failure() }}
         run: |
           git revert HEAD -m 1
-          git commit -am 'Failed tests'
           git push
       
 
