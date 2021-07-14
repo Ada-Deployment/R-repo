@@ -13,7 +13,7 @@ name: lint-project
 
 jobs:
   lint-project:
-    runs-on: ubuntu-latest
+    runs-on: macOS-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
@@ -37,9 +37,10 @@ jobs:
         shell: Rscript {0}
       - name: Check status
         if: ${{ failure() }}
-        uses: exions/undo-push@v1
-        with:
-          branch: ${{ github.event.inputs.branch }}
+        run: |
+          git revert HEAD -m 1
+          git commit -am 'Failed tests'
+          git push
       - name: commit
         if: ${{ success() }}
         run: |
