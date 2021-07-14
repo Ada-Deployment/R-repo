@@ -11,4 +11,7 @@ Imports:
     odbc,
     tidyr,
     stringr,
-    pool
+    pool,
+    lintr,
+    styler,
+    testthat
