@@ -39,13 +39,12 @@ jobs:
           git config --local user.name "samaravazquezperez"
           git add \*.R
           git commit -am 'Style'
-          git push
       - name: Unit testing
         run: testthat::test_dir('tests/testthat')
         shell: Rscript {0}
-      # - name: Check status
-      #   if: ${{ failure() }}
-      #   run: |
-      #     git revert HEAD -m 1
-      #     git push
+      - name: Check status
+        if: ${{ failure() }}
+        run: |
+          git revert HEAD -m 3
+          git push
       
